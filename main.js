@@ -16,7 +16,9 @@ const WIDGET_WIDTH = 480;
 const WIDGET_HEIGHT = 140;
 
 function createMainWindow() {
-  mainWindow = new BrowserWindow({
+  // Load saved position or use defaults
+  const savedPosition = store.get('windowPosition');
+  const windowOptions = {
     width: WIDGET_WIDTH,
     height: WIDGET_HEIGHT,
     frame: false,
@@ -30,13 +32,27 @@ function createMainWindow() {
       contextIsolation: true,
       preload: path.join(__dirname, 'preload.js')
     }
-  });
+  };
+
+  // Apply saved position if it exists
+  if (savedPosition) {
+    windowOptions.x = savedPosition.x;
+    windowOptions.y = savedPosition.y;
+  }
+
+  mainWindow = new BrowserWindow(windowOptions);
 
   mainWindow.loadFile('src/renderer/index.html');
 
   // Make window draggable
   mainWindow.setAlwaysOnTop(true, 'floating');
   mainWindow.setVisibleOnAllWorkspaces(true);
+
+  // Save position when window is moved
+  mainWindow.on('move', () => {
+    const position = mainWindow.getBounds();
+    store.set('windowPosition', { x: position.x, y: position.y });
+  });
 
   mainWindow.on('closed', () => {
     mainWindow = null;

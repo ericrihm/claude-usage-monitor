@@ -117,8 +117,8 @@ const UPDATE_INTERVAL = 5 * 60 * 1000; // Change to your preference (in millisec
 - Try re-logging in from the system tray menu
 
 ### Widget position not saving
-- Position is reset on each launch
-- Future version will include position memory
+- Window position is now saved automatically when you drag it
+- Position will be restored when you restart the app
 
 ### Build errors
 ```bash
@@ -158,7 +158,7 @@ https://claude.ai/api/organizations/{org_id}/usage
 - [ ] Linux support
 - [ ] Custom themes
 - [ ] Notification alerts at usage thresholds
-- [ ] Remember window position
+- [x] Remember window position
 - [ ] Settings panel
 - [ ] Usage history graphs
 - [ ] Multiple account support

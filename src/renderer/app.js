@@ -9,6 +9,7 @@ const UPDATE_INTERVAL = 5 * 60 * 1000; // 5 minutes
 const elements = {
     loadingContainer: document.getElementById('loadingContainer'),
     loginContainer: document.getElementById('loginContainer'),
+    noUsageContainer: document.getElementById('noUsageContainer'),
     mainContent: document.getElementById('mainContent'),
     loginBtn: document.getElementById('loginBtn'),
     refreshBtn: document.getElementById('refreshBtn'),
@@ -130,17 +131,30 @@ async function fetchUsageData() {
     }
 }
 
-// Update UI with usage data
+// Check if there's no usage data
+function hasNoUsage(data) {
+    const sessionUtilization = data.five_hour?.utilization || 0;
+    const sessionResetsAt = data.five_hour?.resets_at;
+    const weeklyUtilization = data.seven_day?.utilization || 0;
+    const weeklyResetsAt = data.seven_day?.resets_at;
+
+    return sessionUtilization === 0 && !sessionResetsAt &&
+           weeklyUtilization === 0 && !weeklyResetsAt;
+}
+
 // Update UI with usage data
 function updateUI(data) {
     latestUsageData = data;
+
+    // Check if there's no usage data
+    if (hasNoUsage(data)) {
+        showNoUsage();
+        return;
+    }
+
+    showMainContent();
     refreshTimers();
     startCountdown();
-
-    // Update timestamp
-    // Update timestamp
-    // const now = new Date();
-    // elements.lastUpdate.textContent = `Updated ${now.toLocaleTimeString()}`;
 }
 
 // Track if we've already triggered a refresh for expired timers
@@ -301,19 +315,29 @@ function updateTimer(timerElement, textElement, resetsAt, totalMinutes) {
 function showLoading() {
     elements.loadingContainer.style.display = 'block';
     elements.loginContainer.style.display = 'none';
+    elements.noUsageContainer.style.display = 'none';
     elements.mainContent.style.display = 'none';
 }
 
 function showLoginRequired() {
     elements.loadingContainer.style.display = 'none';
     elements.loginContainer.style.display = 'flex'; // Use flex to preserve centering
+    elements.noUsageContainer.style.display = 'none';
     elements.mainContent.style.display = 'none';
     stopAutoUpdate();
+}
+
+function showNoUsage() {
+    elements.loadingContainer.style.display = 'none';
+    elements.loginContainer.style.display = 'none';
+    elements.noUsageContainer.style.display = 'flex';
+    elements.mainContent.style.display = 'none';
 }
 
 function showMainContent() {
     elements.loadingContainer.style.display = 'none';
     elements.loginContainer.style.display = 'none';
+    elements.noUsageContainer.style.display = 'none';
     elements.mainContent.style.display = 'block';
 }
 
