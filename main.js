@@ -454,7 +454,12 @@ ipcMain.handle('fetch-usage-data', async () => {
         resets_at: null,
         used_cents: used,
         limit_cents: limit,
+        is_enabled: true,
       };
+    } else if (!enabled) {
+      // Extra usage is off — still pass the flag so the renderer can show status
+      if (!data.extra_usage) data.extra_usage = {};
+      data.extra_usage.is_enabled = false;
     }
   } else {
     debugLog('Overage fetch skipped or failed:', overageResult.reason?.message || 'no data');

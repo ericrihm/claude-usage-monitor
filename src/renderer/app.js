@@ -367,9 +367,16 @@ function buildExtraRows(data) {
                     </div>
                     <span class="usage-percentage">${Math.round(utilization)}%</span>
                    </div>`;
+            const statusTag = value.is_enabled === true
+                ? `<span class="extra-status on">ON</span>`
+                : value.is_enabled === false
+                    ? `<span class="extra-status off">OFF</span>`
+                    : '';
             const balanceHTML = value.balance_cents != null
-                ? `<span class="timer-text extra-balance">Bal $${(value.balance_cents/100).toFixed(0)}</span>`
-                : `<span class="timer-text"></span>`;
+                ? `<span class="timer-text extra-balance">${statusTag} Bal $${(value.balance_cents/100).toFixed(0)}</span>`
+                : statusTag
+                    ? `<span class="timer-text extra-balance">${statusTag}</span>`
+                    : `<span class="timer-text"></span>`;
             row.innerHTML = `
                 <span class="usage-label">${config.label}</span>
                 ${barHTML}

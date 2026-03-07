@@ -677,6 +677,28 @@ body {
     font-weight: 600;
 }
 
+.extra-status {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    padding: 1px 4px;
+    border-radius: 3px;
+    vertical-align: middle;
+    margin-right: 3px;
+}
+
+.extra-status.on {
+    background: rgba(52, 211, 153, 0.15);
+    color: #34d399;
+    border: 1px solid rgba(52, 211, 153, 0.4);
+}
+
+.extra-status.off {
+    background: rgba(160, 160, 160, 0.12);
+    color: #808080;
+    border: 1px solid rgba(160, 160, 160, 0.3);
+}
+
 /* Settings Overlay */
 .settings-overlay {
     position: fixed;
