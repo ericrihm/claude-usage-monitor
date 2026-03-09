@@ -124,11 +124,15 @@ A full settings overlay with persistent preferences via electron-store.
 > Then try launching the app again.
 
 **Linux:**
-1. Download the latest `Claude-Usage-Widget-{version}-linux-x64.AppImage` (Intel/AMD) or `Claude-Usage-Widget-{version}-linux-arm64.AppImage` (ARM) from [Releases](../../releases)
+1. Download the latest `Claude-Usage-Widget-{version}-linux-x86_64.AppImage` (Intel/AMD) or `Claude-Usage-Widget-{version}-linux-arm64.AppImage` (ARM) from [Releases](../../releases)
 2. Make it executable: `chmod +x Claude-Usage-Widget-*.AppImage`
 3. Run it: `./Claude-Usage-Widget-*.AppImage`
 
-> **Note:** AppImage runs without installation on most Linux distributions. If your distro uses AppArmor or similar sandboxing, you may need to pass `--no-sandbox` on first run.
+> **Note:** AppImage runs without installation on most Linux distributions. On Ubuntu 22.04+, you may need to install a dependency first:
+> ```bash
+> sudo apt install libfuse2
+> ```
+> If your distro uses AppArmor or similar sandboxing, you may also need to pass `--no-sandbox` on first run.
 
 ---
 
