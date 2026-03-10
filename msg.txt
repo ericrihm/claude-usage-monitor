@@ -1,6 +1,0 @@
-docs: update README and add release notes for v1.6.0
-
-- Add Usage Alerts and Compact Mode to features list
-- Add v1.6.0 What's New section
-- Mark compact mode and usage alerts as complete in roadmap
-- Add RELEASE_NOTES_v1.6.0.md
