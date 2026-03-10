@@ -921,10 +921,14 @@ function showMainContent() {
     elements.loadingContainer.style.display = 'none';
     elements.loginContainer.style.display = 'none';
     elements.noUsageContainer.style.display = 'none';
-    elements.mainContent.style.display = 'block';
+    // Respect compact mode — don't force mainContent visible if we're in compact
+    if (!isCompactMode) {
+        elements.mainContent.style.display = 'block';
+    }
+    elements.compactContent.style.display = isCompactMode ? 'flex' : 'none';
     // Always show collapse chevron here — applyCompactMode hides it when needed
     if (elements.compactCollapseBtn) {
-        elements.compactCollapseBtn.style.display = 'flex';
+        elements.compactCollapseBtn.style.display = isCompactMode ? 'none' : 'flex';
     }
 }
 
