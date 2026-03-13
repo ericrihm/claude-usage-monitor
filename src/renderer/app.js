@@ -371,20 +371,6 @@ async function fetchUsageData() {
     }
 }
 
-// Check if there's no usage data at all.
-// Weekly limit persists across session windows so we only show "No Usage Yet"
-// if BOTH the session and weekly data are completely absent.
-function hasNoUsage(data) {
-    const sessionResetsAt = data.five_hour?.resets_at;
-    const weeklyResetsAt = data.seven_day?.resets_at;
-    const weeklyUtilization = data.seven_day?.utilization || 0;
-
-    // If weekly has any data, there is something to show — never hide it
-    if (weeklyResetsAt || weeklyUtilization > 0) return false;
-
-    // Weekly is empty too — nothing meaningful to display
-    return !sessionResetsAt;
-}
 
 // Update UI with usage data
 // Format a cent-based amount with the correct currency symbol.
@@ -913,13 +899,6 @@ function showLoginRequired() {
     elements.sessionKeyError.textContent = '';
     elements.sessionKeyInput.value = '';
     stopAutoUpdate();
-}
-
-function showNoUsage() {
-    elements.loadingContainer.style.display = 'none';
-    elements.loginContainer.style.display = 'none';
-    elements.noUsageContainer.style.display = 'flex';
-    elements.mainContent.style.display = 'none';
 }
 
 function showMainContent() {
