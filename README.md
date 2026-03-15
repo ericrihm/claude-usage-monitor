@@ -12,6 +12,7 @@ A beautiful, standalone desktop widget for **Windows, macOS, and Linux** that di
 📊 **Visual Progress Bars** — Clean, gradient progress indicators with configurable warning thresholds
 ⏱️ **Countdown Timers** — Circular timers showing time elapsed in the current session window
 🔄 **Auto-refresh** — Updates every 5 minutes automatically
+📈 **Usage History Graph** — Toggleable 7-day chart showing session and weekly trends over time
 🎨 **Modern UI** — Sleek, draggable widget with dark and light themes
 🔒 **Secure** — Encrypted credential storage
 📍 **Always on Top** — User-controlled, stays visible across all workspaces
@@ -23,6 +24,33 @@ A beautiful, standalone desktop widget for **Windows, macOS, and Linux** that di
 ---
 
 ## What's New
+
+### v1.7.0
+
+#### 📈 Usage History Graph
+A toggleable usage history graph now sits below the main widget. Click the graph button (↗) in the toolbar to show or hide it.
+
+![Claude Usage Widget - Graph](assets/screenshot-graph.png)
+
+- Displays up to **7 days** of session and weekly usage history
+- History is **persisted across restarts** via electron-store — no need to keep the app running continuously
+- Sonnet and Extra Usage lines appear automatically when those sections are visible
+- Lines with no data are hidden to keep the chart clean
+- **Adaptive x-axis labels** — shows times for short spans, weekday+hour for medium spans, and dates for longer spans
+- Respects your **12h/24h time format** setting
+- Hover tooltip shows exact timestamp and value
+- Graph button highlights in theme color when active
+
+#### 🌍 Currency Support
+The Extra Usage row now displays the correct currency symbol based on your account's billing currency — **€**, **£**, or **$**. Falls back to the ISO code for any other currency.
+
+#### 🐛 Bug Fixes
+- Fixed widget showing "No Usage Yet" between session windows even when weekly data was present
+- Fixed app crash when a usage alert fired (missing `Notification` import)
+- Fixed macOS minimize button — widget now minimizes to Dock instead of vanishing, and restores correctly when clicking the Dock icon
+- Increased widget width to prevent date/time text clipping on macOS
+
+---
 
 ### v1.5.3
 
