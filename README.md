@@ -82,11 +82,12 @@ The Extra Usage row now displays the correct currency symbol based on your accou
 2. Open the DMG and drag the app to your Applications folder
 3. Launch "Claude Usage Widget" from Applications
 
-> **⚠️ macOS Security Notice:** Because this app is not yet notarized with Apple, macOS Gatekeeper may show a "damaged or can't be opened" warning. To fix this, run the following command in Terminal after installing:
+> **⚠️ macOS Security Notice:** Because this app is not yet notarized with Apple, macOS Gatekeeper may block it. Run these two commands in Terminal after installing:
 > ```
 > xattr -cr /Applications/Claude-Usage-Widget.app
+> codesign --force --deep --sign - /Applications/Claude-Usage-Widget.app
 > ```
-> Then try launching the app again.
+> Then try launching the app again. The first command removes the quarantine flag, the second re-signs the app locally to satisfy Gatekeeper.
 
 **Linux:**
 1. Download the latest `Claude-Usage-Widget-{version}-linux-x86_64.AppImage` (Intel/AMD) or `Claude-Usage-Widget-{version}-linux-arm64.AppImage` (ARM) from [Releases](../../releases)
