@@ -202,3 +202,7 @@ If issues persist, open a [Support discussion](../../discussions/categories/supp
 ---
 
 *Built with Electron · [Releases](../../releases) · [Discussions](../../discussions)*
+
+---
+
+Made with ❤️ for the Claude.ai community
