@@ -1053,6 +1053,9 @@ function showLoginRequired() {
     elements.loginStep2.style.display = 'none';
     elements.sessionKeyError.textContent = '';
     elements.sessionKeyInput.value = '';
+    // Close any open overlays
+    elements.settingsOverlay.style.display = 'none';
+    elements.compactSettingsOverlay.style.display = 'none';
     // Hide header buttons during login
     elements.settingsBtn.style.display = 'none';
     elements.refreshBtn.style.display = 'none';
@@ -1407,10 +1410,6 @@ async function saveSettings() {
 
     // Re-render resets-at values immediately with new format
     if (latestUsageData) refreshTimers();
-    // Redraw graph with new time format if visible
-    if (graphVisible && chart) {
-        loadChart();
-    }
     // Restart auto-update with new interval if it changed
     startAutoUpdate();
 }
