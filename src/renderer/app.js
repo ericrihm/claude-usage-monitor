@@ -1053,6 +1053,10 @@ function showLoginRequired() {
     elements.loginStep2.style.display = 'none';
     elements.sessionKeyError.textContent = '';
     elements.sessionKeyInput.value = '';
+    // Hide header buttons during login
+    elements.settingsBtn.style.display = 'none';
+    elements.refreshBtn.style.display = 'none';
+    elements.graphBtn.style.display = 'none';
     stopAutoUpdate();
     if (countdownInterval) {
         clearInterval(countdownInterval);
@@ -1081,6 +1085,10 @@ function showMainContent() {
     if (elements.compactCollapseBtn) {
         elements.compactCollapseBtn.style.display = isCompactMode ? 'none' : 'flex';
     }
+    // Restore header buttons after login
+    elements.settingsBtn.style.display = 'flex';
+    elements.refreshBtn.style.display = 'flex';
+    elements.graphBtn.style.display = 'flex';
 }
 
 // Auto-update management
