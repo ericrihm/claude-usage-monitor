@@ -639,7 +639,20 @@ ipcMain.handle('fetch-usage-data', async () => {
 // App lifecycle
 app.whenReady().then(async () => {
   // Restore session cookie if we have stored credentials
-  const sessionKey = store.get('sessionKey');
+  let sessionKey = null;
+  if (safeStorage.isEncryptionAvailable()) {
+    const encrypted = store.get('sessionKey_encrypted');
+    if (encrypted) {
+      try {
+        sessionKey = safeStorage.decryptString(Buffer.from(encrypted, 'base64'));
+      } catch (err) {
+        console.error('[Keychain] Failed to decrypt session key on startup:', err.message);
+      }
+    }
+  } else {
+    sessionKey = store.get('sessionKey');
+  }
+
   if (sessionKey) {
     await setSessionCookie(sessionKey);
   }
