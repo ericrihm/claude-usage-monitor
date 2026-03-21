@@ -671,6 +671,17 @@ app.whenReady().then(async () => {
     }
     mainWindow.setAlwaysOnTop(alwaysOnTop, 'floating');
   }
+
+  // Periodic always-on-top re-assertion to recover from z-order disruptions
+  // (hidden window spawns, window manager shortcuts, alt-tab, etc.)
+  setInterval(() => {
+    if (mainWindow && !mainWindow.isDestroyed()) {
+      const alwaysOnTopSetting = store.get('settings.alwaysOnTop', true);
+      if (alwaysOnTopSetting) {
+        mainWindow.setAlwaysOnTop(true, 'floating');
+      }
+    }
+  }, 5000);
 });
 
 app.on('window-all-closed', () => {
