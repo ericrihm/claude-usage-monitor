@@ -19,12 +19,13 @@
   ],
   "author": "Slavomir Durej",
   "license": "MIT",
-  "copyright": "Copyright \u00a9 2025 Slavomir Durej",
+  "copyright": "Copyright © 2025 Slavomir Durej",
   "engines": {
     "node": ">=18.0.0",
     "npm": ">=9.0.0"
   },
   "devDependencies": {
+    "@electron/notarize": "^3.1.1",
     "cross-env": "^7.0.3",
     "electron": "^28.0.0",
     "electron-builder": "^24.9.1"
@@ -36,7 +37,7 @@
   "build": {
     "appId": "com.claudeusage.widget",
     "productName": "Claude-Usage-Widget",
-    "copyright": "Copyright \u00a9 2025 Slavomir Durej",
+    "copyright": "Copyright © 2025 Slavomir Durej",
     "publish": null,
     "win": {
       "target": [
@@ -72,10 +73,15 @@
         }
       ],
       "icon": "assets/icon.icns",
+      "hardenedRuntime": true,
+      "gatekeeperAssess": false,
+      "entitlements": "build/entitlements.mac.plist",
+      "entitlementsInherit": "build/entitlements.mac.plist",
       "extendInfo": {
-        "NSHumanReadableCopyright": "Copyright \u00a9 2025 Slavomir Durej"
+        "NSHumanReadableCopyright": "Copyright © 2025 Slavomir Durej"
       }
     },
+    "afterSign": "build/notarize.js",
     "dmg": {
       "artifactName": "${productName}-${version}-macOS-${arch}.dmg"
     },
