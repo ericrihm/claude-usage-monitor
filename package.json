@@ -77,11 +77,11 @@
       "gatekeeperAssess": false,
       "entitlements": "build/entitlements.mac.plist",
       "entitlementsInherit": "build/entitlements.mac.plist",
+      "afterSign": "build/notarize.js",
       "extendInfo": {
         "NSHumanReadableCopyright": "Copyright © 2025 Slavomir Durej"
       }
     },
-    "afterSign": "build/notarize.js",
     "dmg": {
       "artifactName": "${productName}-${version}-macOS-${arch}.dmg"
     },
