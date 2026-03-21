@@ -77,7 +77,9 @@
       "gatekeeperAssess": false,
       "entitlements": "build/entitlements.mac.plist",
       "entitlementsInherit": "build/entitlements.mac.plist",
-      "afterSign": "build/notarize.js",
+      "notarize": {
+        "teamId": "X84UXCNLPX"
+      },
       "extendInfo": {
         "NSHumanReadableCopyright": "Copyright © 2025 Slavomir Durej"
       }
