@@ -4,7 +4,6 @@ package-lock.json
 
 # Build output
 dist/
-build/
 out/
 
 # OS files
@@ -40,3 +39,9 @@ yarn-error.log*
 # Local dev scratch files
 msg.txt
 RELEASE_NOTES_DRAFT.md
+
+# Code signing credentials (NEVER COMMIT THESE)
+developer_id.key
+developer_id.csr
+developer_id.p12
+developerID_application.cer
