@@ -5,6 +5,13 @@ Newest releases at the top. Format inspired by [Keep a Changelog](https://keepac
 
 ---
 
+## [Unreleased]
+
+### Docs
+- Linux desktop launcher and autostart instructions (contributed by sergkuzn) — added optional setup guide for creating application launcher icons and auto-start configuration on Linux systems
+
+---
+
 ## [1.7.1] — 2026-03-21
 
 ### New Features
