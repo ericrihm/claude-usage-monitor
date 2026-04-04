@@ -7,6 +7,9 @@ Newest releases at the top. Format inspired by [Keep a Changelog](https://keepac
 
 ## [Unreleased]
 
+### Security
+- Login window navigation hardening — restricts navigation to trusted domains (claude.ai, Google, Apple, Microsoft OAuth providers), blocks popup windows from login page, displays current URL in login window title bar for transparency, prevents phishing attacks via login flow hijacking
+
 ### Docs
 - Linux desktop launcher and autostart instructions (contributed by sergkuzn) — added optional setup guide for creating application launcher icons and auto-start configuration on Linux systems
 
