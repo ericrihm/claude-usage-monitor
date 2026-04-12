@@ -258,9 +258,30 @@ ipcMain.handle('validate-session-key', async (event, sessionKey) => {
     const data = await fetchViaWindow('https://claude.ai/api/organizations');
 
     if (data && Array.isArray(data) && data.length > 0) {
-      const orgId = data[0].uuid || data[0].id;
-      debugLog('Session key validated, org ID:', orgId);
-      return { success: true, organizationId: orgId };
+      // Filter to orgs with 'chat' capability (excludes API-only orgs)
+      const chatOrgs = data.filter(org => 
+        org.capabilities && org.capabilities.includes('chat')
+      );
+
+      if (chatOrgs.length === 0) {
+        return { success: false, error: 'No chat-enabled organizations found' };
+      }
+
+      // Prioritize Teams org if present, otherwise use first chat org
+      const defaultOrg = chatOrgs.find(org => org.raven_type === 'team') || chatOrgs[0];
+      const orgId = defaultOrg.uuid || defaultOrg.id;
+      
+      debugLog(`Session key validated, found ${chatOrgs.length} chat org(s), default org ID:`, orgId);
+      
+      return { 
+        success: true, 
+        organizationId: orgId,
+        organizations: chatOrgs.map(org => ({
+          id: org.uuid || org.id,
+          name: org.name,
+          isTeam: org.raven_type === 'team'
+        }))
+      };
     }
 
     // Check if it's an error response
