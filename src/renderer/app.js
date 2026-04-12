@@ -77,6 +77,8 @@ const elements = {
     timeFormat: document.getElementById('timeFormat'),
     weeklyDateFormat: document.getElementById('weeklyDateFormat'),
     refreshInterval: document.getElementById('refreshInterval'),
+    orgSelector: document.getElementById('orgSelector'),
+    orgSelectorCol: document.getElementById('orgSelectorCol'),
 
     updateBanner: document.getElementById('updateBanner'),
     updateBannerText: document.getElementById('updateBannerText'),
@@ -96,6 +98,48 @@ const elements = {
     compactSettingsOverlay: document.getElementById('compactSettingsOverlay'),
     closeCompactSettingsBtn: document.getElementById('closeCompactSettingsBtn')
 };
+
+// Populate organization selector dropdown
+function populateOrgSelector(organizations, selectedOrgId) {
+    if (!organizations || organizations.length === 0) {
+        // No orgs - hide selector column
+        elements.orgSelectorCol.style.display = 'none';
+        return;
+    }
+
+    // Only show selector if user has multiple chat orgs
+    if (organizations.length > 1) {
+        elements.orgSelectorCol.style.display = '';  // Show column (use default flex display)
+        
+        // Clear existing options
+        elements.orgSelector.innerHTML = '';
+        
+        // Add each org as an option
+        organizations.forEach(org => {
+            const option = document.createElement('option');
+            option.value = org.id;
+            option.textContent = `${org.name}${org.isTeam ? ' (Team)' : ' (Personal)'}`;
+            if (org.id === selectedOrgId) {
+                option.selected = true;
+            }
+            elements.orgSelector.appendChild(option);
+        });
+    } else {
+        // Single org - hide selector column
+        elements.orgSelectorCol.style.display = 'none';
+    }
+}
+
+// Handle organization change
+async function handleOrgChange() {
+    const newOrgId = elements.orgSelector.value;
+    if (newOrgId && newOrgId !== credentials.organizationId) {
+        credentials.organizationId = newOrgId;
+        await window.electronAPI.saveCredentials(credentials);
+        // Refresh usage data with new org
+        await fetchUsageData();
+    }
+}
 
 // Initialize
 async function init() {
@@ -141,6 +185,10 @@ async function init() {
     }
 
     if (credentials.sessionKey && credentials.organizationId) {
+        // Populate org selector if user has multiple orgs
+        if (credentials.organizations && credentials.organizations.length > 0) {
+            populateOrgSelector(credentials.organizations, credentials.organizationId);
+        }
         showMainContent();
         await fetchUsageData();
         startAutoUpdate();
@@ -303,6 +351,9 @@ function setupEventListeners() {
         // No immediate action — Done button reads this value and applies
     });
 
+    // Organization selector — change triggers immediate save and refresh
+    elements.orgSelector.addEventListener('change', handleOrgChange);
+
     // Settings button — open compact settings if in compact mode, full settings otherwise
     elements.settingsBtn.addEventListener('click', async () => {
         stopAutoUpdate();
@@ -312,7 +363,7 @@ function setupEventListeners() {
         } else {
             await loadSettings();
             elements.settingsOverlay.style.display = 'flex';
-            window.electronAPI.resizeWindow(288);
+            window.electronAPI.resizeWindow(318); // Increased from 288 for org selector row
         }
     });
 
@@ -343,8 +394,13 @@ async function handleConnect() {
     try {
         const result = await window.electronAPI.validateSessionKey(sessionKey);
         if (result.success) {
-            credentials = { sessionKey, organizationId: result.organizationId };
+            credentials = { 
+                sessionKey, 
+                organizationId: result.organizationId,
+                organizations: result.organizations || []
+            };
             await window.electronAPI.saveCredentials(credentials);
+            populateOrgSelector(result.organizations || [], result.organizationId);
             elements.sessionKeyInput.value = '';
             showMainContent();
             await fetchUsageData();
@@ -380,9 +436,11 @@ async function handleAutoDetect() {
         if (validation.success) {
             credentials = {
                 sessionKey: result.sessionKey,
-                organizationId: validation.organizationId
+                organizationId: validation.organizationId,
+                organizations: validation.organizations || []
             };
             await window.electronAPI.saveCredentials(credentials);
+            populateOrgSelector(validation.organizations || [], validation.organizationId);
             showMainContent();
             await fetchUsageData();
             startAutoUpdate();
@@ -1368,6 +1426,11 @@ async function loadSettings() {
     if (elements.refreshInterval) elements.refreshInterval.value = settings.refreshInterval || '300';
     elements.usageAlertsToggle.checked = settings.usageAlerts !== false;
     if (elements.compactModeToggle) elements.compactModeToggle.checked = !!settings.compactMode;
+
+    // Populate org selector if user has organizations
+    if (credentials.organizations && credentials.organizations.length > 0) {
+        populateOrgSelector(credentials.organizations, credentials.organizationId);
+    }
 
     warnThreshold = settings.warnThreshold;
     dangerThreshold = settings.dangerThreshold;
