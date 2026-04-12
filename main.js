@@ -581,12 +581,34 @@ ipcMain.handle('check-for-update', () => {
 
 function isNewerVersion(remote, local) {
   try {
-    const r = remote.split('.').map(Number);
-    const l = local.split('.').map(Number);
-    for (let i = 0; i < 3; i++) {
-      if ((r[i] || 0) > (l[i] || 0)) return true;
-      if ((r[i] || 0) < (l[i] || 0)) return false;
-    }
+    // Parse version strings with optional pre-release tags
+    // Examples: "1.7.1", "1.7.2-rc.1", "2.0.0-beta.3"
+    const parseVersion = (ver) => {
+      const [mainVer, preRelease] = ver.split('-');
+      const parts = mainVer.split('.').map(Number);
+      return {
+        major: parts[0] || 0,
+        minor: parts[1] || 0,
+        patch: parts[2] || 0,
+        preRelease: preRelease || null
+      };
+    };
+
+    const r = parseVersion(remote);
+    const l = parseVersion(local);
+
+    // Compare major.minor.patch
+    if (r.major !== l.major) return r.major > l.major;
+    if (r.minor !== l.minor) return r.minor > l.minor;
+    if (r.patch !== l.patch) return r.patch > l.patch;
+
+    // If versions are equal, check pre-release tags
+    // A version WITHOUT pre-release is NEWER than one WITH pre-release
+    // Examples: 1.7.2 > 1.7.2-rc.1, 1.7.2 > 1.7.2-beta.1
+    if (r.preRelease === null && l.preRelease !== null) return true;   // remote is stable, local is pre-release
+    if (r.preRelease !== null && l.preRelease === null) return false;  // remote is pre-release, local is stable
+
+    // Both have same version and both stable (or both pre-release) - not newer
     return false;
   } catch { return false; }
 }
