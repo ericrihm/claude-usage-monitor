@@ -139,32 +139,189 @@ function getBackgroundColor(percent, isSession, warnThreshold, dangerThreshold) 
 }
 
 /**
- * Simple 5x7 bitmap font for numbers 0-9
- * Each number is represented as an array of 7 rows, each row is 5 bits
+ * Bold 8x11 bitmap font for numbers 0-9 (2-pixel strokes for bold look)
+ * Each number is represented as an array of 11 rows, each row is 8 bits
  */
 const BITMAP_FONT = {
-  '0': [0b01110, 0b10001, 0b10011, 0b10101, 0b11001, 0b10001, 0b01110],
-  '1': [0b00100, 0b01100, 0b00100, 0b00100, 0b00100, 0b00100, 0b01110],
-  '2': [0b01110, 0b10001, 0b00001, 0b00010, 0b00100, 0b01000, 0b11111],
-  '3': [0b01110, 0b10001, 0b00001, 0b00110, 0b00001, 0b10001, 0b01110],
-  '4': [0b00010, 0b00110, 0b01010, 0b10010, 0b11111, 0b00010, 0b00010],
-  '5': [0b11111, 0b10000, 0b11110, 0b00001, 0b00001, 0b10001, 0b01110],
-  '6': [0b00110, 0b01000, 0b10000, 0b11110, 0b10001, 0b10001, 0b01110],
-  '7': [0b11111, 0b00001, 0b00010, 0b00100, 0b01000, 0b01000, 0b01000],
-  '8': [0b01110, 0b10001, 0b10001, 0b01110, 0b10001, 0b10001, 0b01110],
-  '9': [0b01110, 0b10001, 0b10001, 0b01111, 0b00001, 0b00010, 0b01100]
+  '0': [
+    0b00111100,
+    0b01111110,
+    0b11100111,
+    0b11000011,
+    0b11000011,
+    0b11000011,
+    0b11000011,
+    0b11000011,
+    0b11100111,
+    0b01111110,
+    0b00111100
+  ],
+  '1': [
+    0b00011000,
+    0b00111000,
+    0b01111000,
+    0b00011000,
+    0b00011000,
+    0b00011000,
+    0b00011000,
+    0b00011000,
+    0b00011000,
+    0b01111110,
+    0b01111110
+  ],
+  '2': [
+    0b00111100,
+    0b01111110,
+    0b11100111,
+    0b00000011,
+    0b00000110,
+    0b00011100,
+    0b00111000,
+    0b01110000,
+    0b11100000,
+    0b11111111,
+    0b11111111
+  ],
+  '3': [
+    0b00111100,
+    0b01111110,
+    0b11100111,
+    0b00000011,
+    0b00000110,
+    0b00111100,
+    0b00000110,
+    0b00000011,
+    0b11100111,
+    0b01111110,
+    0b00111100
+  ],
+  '4': [
+    0b00000110,
+    0b00001110,
+    0b00011110,
+    0b00110110,
+    0b01100110,
+    0b11111111,
+    0b11111111,
+    0b00000110,
+    0b00000110,
+    0b00000110,
+    0b00000110
+  ],
+  '5': [
+    0b11111111,
+    0b11111111,
+    0b11000000,
+    0b11000000,
+    0b11111100,
+    0b00000110,
+    0b00000011,
+    0b00000011,
+    0b11100111,
+    0b01111110,
+    0b00111100
+  ],
+  '6': [
+    0b00111100,
+    0b01111110,
+    0b11100000,
+    0b11000000,
+    0b11111100,
+    0b11100110,
+    0b11000011,
+    0b11000011,
+    0b11100111,
+    0b01111110,
+    0b00111100
+  ],
+  '7': [
+    0b11111111,
+    0b11111111,
+    0b00000011,
+    0b00000110,
+    0b00001100,
+    0b00011000,
+    0b00110000,
+    0b00110000,
+    0b01100000,
+    0b01100000,
+    0b01100000
+  ],
+  '8': [
+    0b00111100,
+    0b01111110,
+    0b11100111,
+    0b11000011,
+    0b01111110,
+    0b00111100,
+    0b01111110,
+    0b11000011,
+    0b11100111,
+    0b01111110,
+    0b00111100
+  ],
+  '9': [
+    0b00111100,
+    0b01111110,
+    0b11100111,
+    0b11000011,
+    0b11000011,
+    0b01111111,
+    0b00111111,
+    0b00000011,
+    0b00000111,
+    0b01111110,
+    0b00111100
+  ]
 };
 
 /**
- * Draw a bitmap character at position (x, y) in the buffer
+ * Narrow 6x11 bitmap font for 3-digit numbers (100%)
+ * Bold version to match
  */
-function drawChar(buffer, width, height, char, x, y, color) {
-  const bitmap = BITMAP_FONT[char];
-  if (!bitmap) return 5; // Return width even if char not found
+const BITMAP_FONT_NARROW = {
+  '0': [
+    0b011110,
+    0b111111,
+    0b110011,
+    0b110011,
+    0b110011,
+    0b110011,
+    0b110011,
+    0b110011,
+    0b110011,
+    0b111111,
+    0b011110
+  ],
+  '1': [
+    0b001100,
+    0b011100,
+    0b111100,
+    0b001100,
+    0b001100,
+    0b001100,
+    0b001100,
+    0b001100,
+    0b001100,
+    0b111111,
+    0b111111
+  ]
+};
+
+/**
+ * Draw a crisp bitmap character at position (x, y) in the buffer
+ */
+function drawChar(buffer, width, height, char, x, y, color, useNarrow = false) {
+  const bitmap = useNarrow ? BITMAP_FONT_NARROW[char] : BITMAP_FONT[char];
+  if (!bitmap) return useNarrow ? 6 : 8;
   
-  for (let row = 0; row < 7; row++) {
-    for (let col = 0; col < 5; col++) {
-      if (bitmap[row] & (1 << (4 - col))) {
+  const charWidth = useNarrow ? 6 : 8;
+  const charHeight = 11;
+  const maxCol = useNarrow ? 5 : 7;
+  
+  for (let row = 0; row < charHeight; row++) {
+    for (let col = 0; col < charWidth; col++) {
+      if (bitmap[row] & (1 << (maxCol - col))) {
         const px = x + col;
         const py = y + row;
         if (px >= 0 && px < width && py >= 0 && py < height) {
@@ -177,18 +334,18 @@ function drawChar(buffer, width, height, char, x, y, color) {
       }
     }
   }
-  return 5; // Character width
+  return charWidth;
 }
 
 /**
- * Generate a single percentage badge icon with colored background and text
+ * Generate a single percentage badge icon with colored background and bitmap text
  * @param {number} percent - Usage percentage (0-100)
  * @param {object} bgColor - Background color {r, g, b}
  * @returns {NativeImage} Generated tray icon
  */
 function generatePercentageIcon(percent, bgColor) {
-  const width = 16;
-  const height = 16;
+  const width = 20;  // Back to 20x20
+  const height = 20;
   const buffer = Buffer.alloc(width * height * 4);
   
   // Draw filled square background
@@ -206,18 +363,86 @@ function generatePercentageIcon(percent, bgColor) {
   const percentText = Math.round(percent).toString();
   const textColor = { r: 255, g: 255, b: 255, a: 255 };
   
-  // Center the text
-  const charWidth = 5;
-  const charHeight = 7;
-  const gap = percentText.length >= 3 ? 0 : 1; // No gap for 3-digit numbers to fit in 16px
+  // Use narrow font for 3-digit numbers (100%)
+  const useNarrow = percentText.length >= 3;
+  const charWidth = useNarrow ? 6 : 8;
+  const charHeight = 11;
+  const gap = percentText.length >= 3 ? 0 : 1; // 1px gap for 1-2 digits, no gap for 100
   const totalWidth = percentText.length * charWidth + (percentText.length - 1) * gap;
   let startX = Math.floor((width - totalWidth) / 2);
   const startY = Math.floor((height - charHeight) / 2);
   
   // Draw each digit
   for (let i = 0; i < percentText.length; i++) {
-    drawChar(buffer, width, height, percentText[i], startX, startY, textColor);
+    drawChar(buffer, width, height, percentText[i], startX, startY, textColor, useNarrow);
     startX += charWidth + gap;
+  }
+  
+  return nativeImage.createFromBuffer(buffer, { width, height });
+}
+
+/**
+ * Generate a Red X icon for 99-100% usage (maxed out)
+ * @returns {NativeImage} Generated red X tray icon
+ */
+function generateRedXIcon() {
+  const width = 20;
+  const height = 20;
+  const buffer = Buffer.alloc(width * height * 4);
+  
+  // Red background
+  const red = { r: 220, g: 53, b: 69 }; // #dc3545
+  for (let y = 0; y < height; y++) {
+    for (let x = 0; x < width; x++) {
+      const offset = (y * width + x) * 4;
+      buffer[offset] = red.b;
+      buffer[offset + 1] = red.g;
+      buffer[offset + 2] = red.r;
+      buffer[offset + 3] = 255;
+    }
+  }
+  
+  // Draw white X (2 pixel thick lines)
+  const white = { r: 255, g: 255, b: 255, a: 255 };
+  
+  // Diagonal line from top-left to bottom-right
+  for (let i = 0; i < 11; i++) {
+    const x1 = 5 + i;
+    const y1 = 5 + i;
+    // Draw 2x2 pixel for thickness
+    for (let dy = 0; dy < 2; dy++) {
+      for (let dx = 0; dx < 2; dx++) {
+        const px = x1 + dx;
+        const py = y1 + dy;
+        if (px < width && py < height) {
+          const offset = (py * width + px) * 4;
+          buffer[offset] = white.b;
+          buffer[offset + 1] = white.g;
+          buffer[offset + 2] = white.r;
+          buffer[offset + 3] = white.a;
+        }
+      }
+    }
+  }
+  
+  // Diagonal line from top-right to bottom-left
+  for (let i = 0; i < 11; i++) {
+    const x1 = 15 - i;
+    const y1 = 5 + i;
+    // Draw 2x2 pixel for thickness
+    for (let dy = 0; dy < 2; dy++) {
+      for (let dx = 0; dx < 2; dx++) {
+        const px = x1 + dx;
+        const py = y1 + dy;
+        if (px < width && py < height) {
+          const offset = (py * width + px) * 4;
+          buffer[offset] = white.b;
+          buffer[offset + 1] = white.g;
+          buffer[offset + 2] = white.r;
+          buffer[offset + 3] = white.a;
+        }
+      }
+    }
   }
   
   return nativeImage.createFromBuffer(buffer, { width, height });
@@ -229,13 +454,13 @@ function createTray() {
   try {
     const staticIconPath = path.join(__dirname, process.platform === 'darwin' ? 'assets/tray-icon-mac.png' : process.platform === 'linux' ? 'assets/tray-icon-linux.png' : 'assets/tray-icon.png');
     
-    // Create Session tray icon (left, purple)
-    sessionTray = new Tray(staticIconPath);
-    sessionTray.setToolTip('Session Usage');
-    
-    // Create Weekly tray icon (right, blue)
+    // Create Weekly tray icon FIRST (left position, blue)
     weeklyTray = new Tray(staticIconPath);
     weeklyTray.setToolTip('Weekly Usage');
+    
+    // Create Session tray icon SECOND (right position, purple)
+    sessionTray = new Tray(staticIconPath);
+    sessionTray.setToolTip('Session Usage');
 
     const contextMenu = Menu.buildFromTemplate([
       {
@@ -290,7 +515,19 @@ function createTray() {
     sessionTray.setContextMenu(contextMenu);
     weeklyTray.setContextMenu(contextMenu);
 
-    // Click handlers
+    // Click handlers - swapped order
+    weeklyTray.on('click', () => {
+      if (mainWindow) {
+        if (mainWindow.isVisible() && !mainWindow.isMinimized()) {
+          mainWindow.hide();
+        } else {
+          if (mainWindow.isMinimized()) mainWindow.restore();
+          mainWindow.show();
+          mainWindow.focus();
+        }
+      }
+    });
+    
     sessionTray.on('click', () => {
       if (mainWindow) {
         if (mainWindow.isVisible() && !mainWindow.isMinimized()) {
@@ -352,23 +589,33 @@ function updateTrayIcon(usageData) {
 
   // Extract percentages from usage data
   const sessionPercent = usageData?.five_hour?.utilization || 0;
-  const weeklyPercent = usageData?.seven_day?.utilization || 0;
+  const weeklyPercent = 100; // TEMP: Force 100% to see Red X icon
 
   try {
-    // Generate Session icon (purple background)
-    const sessionColor = getBackgroundColor(sessionPercent, true, warnThreshold, dangerThreshold);
-    const sessionIcon = generatePercentageIcon(sessionPercent, sessionColor);
-    if (sessionTray && !sessionTray.isDestroyed()) {
-      sessionTray.setImage(sessionIcon);
-      sessionTray.setToolTip(`Session: ${Math.round(sessionPercent)}%`);
+    // Generate Weekly icon (blue background) - LEFT position
+    let weeklyIcon;
+    if (weeklyPercent >= 99) {
+      weeklyIcon = generateRedXIcon();
+    } else {
+      const weeklyColor = getBackgroundColor(weeklyPercent, false, warnThreshold, dangerThreshold);
+      weeklyIcon = generatePercentageIcon(weeklyPercent, weeklyColor);
     }
-    
-    // Generate Weekly icon (blue background)
-    const weeklyColor = getBackgroundColor(weeklyPercent, false, warnThreshold, dangerThreshold);
-    const weeklyIcon = generatePercentageIcon(weeklyPercent, weeklyColor);
     if (weeklyTray && !weeklyTray.isDestroyed()) {
       weeklyTray.setImage(weeklyIcon);
       weeklyTray.setToolTip(`Weekly: ${Math.round(weeklyPercent)}%`);
+    }
+    
+    // Generate Session icon (purple background) - RIGHT position
+    let sessionIcon;
+    if (sessionPercent >= 99) {
+      sessionIcon = generateRedXIcon();
+    } else {
+      const sessionColor = getBackgroundColor(sessionPercent, true, warnThreshold, dangerThreshold);
+      sessionIcon = generatePercentageIcon(sessionPercent, sessionColor);
+    }
+    if (sessionTray && !sessionTray.isDestroyed()) {
+      sessionTray.setImage(sessionIcon);
+      sessionTray.setToolTip(`Session: ${Math.round(sessionPercent)}%`);
     }
   } catch (error) {
     console.error('Failed to update tray icons:', error);
