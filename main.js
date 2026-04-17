@@ -589,7 +589,7 @@ function updateTrayIcon(usageData) {
 
   // Extract percentages from usage data
   const sessionPercent = usageData?.five_hour?.utilization || 0;
-  const weeklyPercent = 100; // TEMP: Force 100% to see Red X icon
+  const weeklyPercent = usageData?.seven_day?.utilization || 0;
 
   try {
     // Generate Weekly icon (blue background) - LEFT position
