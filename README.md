@@ -246,7 +246,7 @@ If issues persist, open a [Support discussion](../../discussions/categories/supp
 - [x] Compact mode
 - [x] Usage history graph
 - [x] Currency support
-- [ ] Multiple account support
+- [x] Organization/Teams support
 - [ ] Keyboard shortcuts
 
 ---
