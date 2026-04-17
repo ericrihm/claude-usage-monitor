@@ -1,195 +1,108 @@
 # Quick Start Guide
 
-## Installation & Development
+Get up and running with Claude Usage Widget in under 2 minutes.
 
-### 1. Install Dependencies
+## Step 1: Download
 
+Go to [Releases](https://github.com/SlavomirDurej/claude-usage-widget/releases) and download the latest version for your platform:
+
+- **Windows:** `Claude-Usage-Widget-{version}-win-Setup.exe`
+- **macOS:** `Claude-Usage-Widget-{version}-macOS-arm64.dmg` (Apple Silicon) or `-x64.dmg` (Intel)
+- **Linux:** `Claude-Usage-Widget-{version}-linux-x86_64.AppImage`
+
+## Step 2: Install
+
+### Windows
+1. Run the downloaded `.exe` installer
+2. Follow the installation wizard
+3. Launch from Start Menu
+
+**Or use the portable version** (no installation):
+Download `Claude-Usage-Widget-{version}-win-portable.exe` and run it directly.
+
+### macOS
+1. Open the `.dmg` file
+2. Drag the app to your Applications folder
+3. Launch from Applications
+
+**Note:** The app is signed and notarized. If you see a warning, run:
 ```bash
-cd claude-usage-widget
-npm install
+xattr -cr /Applications/Claude\ Usage\ Widget.app
 ```
 
-### 2. Run in Development Mode
+### Linux
+1. Make the AppImage executable:
+   ```bash
+   chmod +x Claude-Usage-Widget-*.AppImage
+   ```
+2. Run it:
+   ```bash
+   ./Claude-Usage-Widget-*.AppImage
+   ```
 
+**Ubuntu 22.04+:** If it doesn't run, install libfuse2 first:
 ```bash
-npm start
+sudo apt install libfuse2
 ```
 
-This will:
-- Launch the widget with DevTools open
-- Enable hot-reload for debugging
-- Show console logs
+## Step 3: Login
 
-### 3. Test the Application
+1. **Launch the widget** - A small window appears
+2. **Click "Login to Claude"** - Your browser opens
+3. **Sign in** - Use your normal Claude.ai credentials
+4. **Done!** - The widget automatically captures your session and displays usage
 
-**First Run:**
-1. Widget appears (frameless window)
-2. Click "Login to Claude"
-3. Browser window opens to claude.ai
-4. Login with your credentials
-5. Widget automatically captures session
-6. Usage data displays
+## What You'll See
 
-**Features to Test:**
-- [ ] Drag widget around screen
-- [ ] Refresh button updates data
-- [ ] Minimize to system tray
-- [ ] Right-click tray icon shows menu
-- [ ] Progress bars animate smoothly
-- [ ] Timers count down correctly
-- [ ] Re-login from tray menu works
+After logging in, the widget shows:
 
-### 4. Build for Production
+- **Session Usage** - Your current 5-hour window progress (resets when you reach the limit or after 5 hours)
+- **Weekly Usage** - Your 7-day rolling limit
+- **Countdown Timers** - When each limit resets
+- **System Tray Icons** (Windows) - Two small icons showing real-time usage percentages
 
-```bash
-npm run build:win
-```
+## Daily Use
 
-Output: `dist/Claude-Usage-Widget-Setup.exe`
+**Opening the widget:**
+- Click the tray icon (Windows/Linux)
+- Click the Dock icon (macOS)
 
-## Development Tips
+**Refreshing data:**
+- Auto-refreshes every 5 minutes
+- Click the refresh button (🔄) for manual update
 
-### Enable DevTools
-Already enabled in dev mode. To disable, edit `main.js`:
-```javascript
-if (process.env.NODE_ENV === 'development') {
-  // Comment out this line:
-  // mainWindow.webContents.openDevTools({ mode: 'detach' });
-}
-```
+**Minimizing:**
+- Click the minimize button (−)
+- Widget hides to tray/dock
 
-### Test Without Building
-```bash
-npm start
-```
+**Settings:**
+- Click the gear icon (⚙️) to customize:
+  - Warning thresholds (when bars turn orange/red)
+  - Time/date format (12h vs 24h)
+  - Theme (light/dark)
+  - Auto-refresh interval
+  - Organization (if you have Teams + Personal accounts)
 
-### Debug Authentication
-Check the console for:
-- Cookie capture events
-- Organization ID extraction
-- API responses
+## System Tray Icons (Windows)
 
-### Change Update Frequency
-Edit `src/renderer/app.js`:
-```javascript
-const UPDATE_INTERVAL = 1 * 60 * 1000; // 1 minute for testing
-```
+Two small icons in your system tray show usage at a glance:
 
-### Mock API Response
-For testing UI without API calls, add to `fetchUsageData()`:
-```javascript
-const mockData = {
-  five_hour: { utilization: 45.5, resets_at: "2025-12-13T20:00:00Z" },
-  seven_day: { utilization: 78.2, resets_at: "2025-12-17T07:00:00Z" }
-};
-updateUI(mockData);
-return;
-```
+- **Left (blue):** Weekly usage percentage
+- **Right (purple):** Session usage percentage
+- **Red X:** Appears when usage reaches 99-100%
 
-## File Structure
+Hover over icons to see exact percentages.
 
-```
-claude-usage-widget/
-├── main.js                 # Electron main process
-├── preload.js             # IPC bridge
-├── package.json           # Dependencies & build config
-├── src/
-│   └── renderer/
-│       ├── index.html     # Widget UI
-│       ├── styles.css     # Styling
-│       └── app.js         # Frontend logic
-└── assets/
-    ├── icon.ico           # App icon
-    └── tray-icon.png      # Tray icon
-```
+## Logging Out
 
-## Common Issues
+Right-click the tray icon → "Log Out" to clear your session.
 
-### Port Already in Use
-Electron doesn't use ports, so this shouldn't happen.
+## Need Help?
 
-### White Screen on Launch
-Check console for errors. Usually means:
-- Missing file paths
-- JavaScript errors in app.js
-- CSS not loading
-
-### Login Window Not Capturing Session
-Check `main.js` - the `did-finish-load` event handler should:
-1. Check URL contains 'chat' or 'new'
-2. Extract sessionKey cookie
-3. Try to get organization ID
-
-### API Returns 401
-Session expired. Click "Re-login" from tray menu.
-
-## Adding Features
-
-### Custom Themes
-Edit `styles.css` - change gradient colors:
-```css
-.widget-container {
-  background: linear-gradient(135deg, #your-color 0%, #another-color 100%);
-}
-```
-
-### Notification Alerts
-Add to `updateUI()` in `app.js`:
-```javascript
-if (weeklyUtilization >= 90) {
-  new Notification('Claude Usage Alert', {
-    body: 'You\'re at 90% of weekly limit!'
-  });
-}
-```
-
-### Keyboard Shortcuts
-Add to `main.js`:
-```javascript
-const { globalShortcut } = require('electron');
-
-app.whenReady().then(() => {
-  globalShortcut.register('CommandOrControl+Shift+C', () => {
-    if (mainWindow) {
-      mainWindow.isVisible() ? mainWindow.hide() : mainWindow.show();
-    }
-  });
-});
-```
-
-## Debugging
-
-### Console Logs
-- Main process: Check terminal where you ran `npm start`
-- Renderer process: Check DevTools console (F12)
-
-### Network Requests
-DevTools → Network tab shows all API calls
-
-### Storage
-Check stored credentials:
-```javascript
-// In DevTools console:
-await window.electronAPI.getCredentials()
-```
-
-## Publishing
-
-1. Update version in `package.json`
-2. Run `npm run build:win`
-3. Test the installer in `dist/`
-4. Create GitHub release
-5. Upload the `.exe` file
-
-## Next Steps
-
-- [ ] Add app icon (`.ico` file)
-- [ ] Add tray icon (16x16 PNG)
-- [ ] Test on clean Windows machine
-- [ ] Create installer screenshots
-- [ ] Write changelog
-- [ ] Submit to releases
+- **Installation issues:** See [INSTALL.md](INSTALL.md) for detailed platform-specific guides
+- **Feature questions:** Check the [README](README.md)
+- **Problems:** Open a [Support Discussion](https://github.com/SlavomirDurej/claude-usage-widget/discussions/categories/support)
 
 ---
 
-Happy coding! 🚀
+**That's it!** You're now tracking your Claude usage. 🎉
