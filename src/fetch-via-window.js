@@ -36,7 +36,7 @@ function parseResponseBody(bodyText) {
   // This provides explicit errors when Claude.ai modifies their API or CSP.
   for (const sig of BLOCKED_SIGNATURES) {
     if (bodyText.includes(sig.pattern)) {
-      throw new Error(`${sig.error}: ${bodyText.substring(0, 200)}`);
+      throw new Error(\: \);
     }
   }
 
@@ -51,8 +51,7 @@ function parseResponseBody(bodyText) {
  * Fetch a single URL using a dedicated BrowserWindow (legacy single-call approach)
  * @param {string} url - URL to fetch
  * @param {Object} options - Options object
- * @param {number} options.timeoutMs
- * @param {boolean} options.logTiming - Log timing information to console (default: false) - Request timeout in milliseconds (default: 30000)
+ * @param {number} options.timeoutMs - Request timeout in milliseconds (default: 30000)
  * @returns {Promise<Object>} Parsed JSON response
  */
 function fetchViaWindow(url, { timeoutMs = 30000 } = {}) {
@@ -92,7 +91,7 @@ function fetchViaWindow(url, { timeoutMs = 30000 } = {}) {
     win.webContents.on('did-fail-load', (event, errorCode, errorDescription) => {
       clearTimeout(timeout);
       win.close();
-      reject(new Error(`LoadFailed: ${errorCode} ${errorDescription}`));
+      reject(new Error(\LoadFailed: \ \));
     });
 
     win.loadURL(url);
@@ -105,8 +104,7 @@ function fetchViaWindow(url, { timeoutMs = 30000 } = {}) {
  * 
  * @param {string[]} urls - Array of URLs to fetch
  * @param {Object} options - Options object
- * @param {number} options.timeoutMs
- * @param {boolean} options.logTiming - Log timing information to console (default: false) - Per-request timeout in milliseconds (default: 10000)
+ * @param {number} options.timeoutMs - Per-request timeout in milliseconds (default: 10000)
  * @returns {Promise<Object[]>} Array of parsed JSON responses (or errors)
  */
 function fetchMultipleViaWindow(urls, { timeoutMs = 10000 } = {}) {
@@ -131,17 +129,6 @@ function fetchMultipleViaWindow(urls, { timeoutMs = 10000 } = {}) {
     function loadNext() {
       if (currentIndex >= urls.length) {
         // All URLs fetched successfully
-        const totalTime = Date.now() - startTime;
-        if (logTiming) {
-          console.log('\n[API Timing] Batch fetch complete');
-          console.log(`[API Timing] Total time: ${totalTime}ms for ${urls.length} requests`);
-          timings.forEach((timing, idx) => {
-            const urlName = urls[idx].includes('/usage') ? 'usage' : 
-                           urls[idx].includes('/overage') ? 'overage' : 
-                           urls[idx].includes('/prepaid') ? 'prepaid' : `request${idx}`;
-            console.log(`[API Timing]   ${urlName}: ${timing}ms`);
-          });
-        }
         win.close();
         resolve(results);
         return;
@@ -149,11 +136,9 @@ function fetchMultipleViaWindow(urls, { timeoutMs = 10000 } = {}) {
 
       const url = urls[currentIndex];
       
-      
-      
       currentTimeout = setTimeout(() => {
         win.close();
-        reject(new Error(`Request timeout for URL ${currentIndex}: ${url}`));
+        reject(new Error(\Request timeout for URL \: \));
       }, timeoutMs);
 
       win.loadURL(url);
@@ -164,10 +149,6 @@ function fetchMultipleViaWindow(urls, { timeoutMs = 10000 } = {}) {
         const bodyText = await win.webContents.executeJavaScript(
           'document.body.innerText || document.body.textContent'
         );
-        
-        
-        
-        
         
         if (currentTimeout) {
           clearTimeout(currentTimeout);
@@ -194,7 +175,7 @@ function fetchMultipleViaWindow(urls, { timeoutMs = 10000 } = {}) {
         currentTimeout = null;
       }
       win.close();
-      reject(new Error(`LoadFailed at URL ${currentIndex}: ${errorCode} ${errorDescription}`));
+      reject(new Error(\LoadFailed at URL \: \ \));
     });
 
     // Start loading the first URL
