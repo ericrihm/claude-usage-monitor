@@ -505,7 +505,7 @@ async function fetchUsageData() {
 // Known unambiguous symbols are used; everything else falls back to the
 // ISO 4217 code as a suffix so the display is always correct.
 function formatCurrency(amountCents, currencyCode) {
-  const amount = (amountCents / 100).toFixed(0);
+  const amount = (amountCents / 100).toFixed(2);
   const symbols = { USD: '$', EUR: '€', GBP: '£' };
   const sym = symbols[currencyCode];
   return sym ? `${sym}${amount}` : `${amount} ${currencyCode || 'USD'}`;
