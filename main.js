@@ -483,6 +483,30 @@ function generateRedXIcon() {
 
 
 
+/**
+ * Show the main window without the double-blink artifact on Windows.
+ *
+ * On Windows, transparent + alwaysOnTop + frameless windows re-enter the DWM
+ * compositing pipeline in two steps when shown after hide(): an initial layered
+ * window render (blink 1) followed by the alwaysOnTop z-order re-assertion
+ * (blink 2). Setting opacity to 0 before show() masks those intermediate states;
+ * the window is made opaque again after the DWM has had time to settle (~3 frames).
+ * macOS and Linux do not have this issue so they just call show() directly.
+ */
+function showMainWindowClean() {
+  if (!mainWindow || mainWindow.isDestroyed()) return;
+  if (mainWindow.isMinimized()) mainWindow.restore();
+  if (process.platform === 'win32') {
+    mainWindow.setOpacity(0);
+    mainWindow.show();
+    setTimeout(() => {
+      if (mainWindow && !mainWindow.isDestroyed()) mainWindow.setOpacity(1);
+    }, 50);
+  } else {
+    mainWindow.show();
+  }
+}
+
 function createTray() {
   try {
     const staticIconPath = path.join(__dirname, process.platform === 'darwin' ? 'assets/tray-icon-mac.png' : process.platform === 'linux' ? 'assets/tray-icon-linux.png' : 'assets/tray-icon.png');
@@ -500,9 +524,7 @@ function createTray() {
         label: 'Show Widget',
         click: () => {
           if (mainWindow) {
-            if (mainWindow.isMinimized()) mainWindow.restore();
-            mainWindow.show();
-            mainWindow.focus();
+            showMainWindowClean();
           } else {
             createMainWindow();
           }
@@ -549,38 +571,22 @@ function createTray() {
     weeklyTray.setContextMenu(contextMenu);
 
     // Click handlers - swapped order
-    weeklyTray.on('click', () => {
+        weeklyTray.on('click', () => {
       if (mainWindow) {
         if (mainWindow.isVisible() && !mainWindow.isMinimized()) {
           mainWindow.hide();
         } else {
-          if (mainWindow.isMinimized()) mainWindow.restore();
-          mainWindow.show();
-          mainWindow.focus();
+          showMainWindowClean();
         }
       }
     });
     
-    sessionTray.on('click', () => {
+        sessionTray.on('click', () => {
       if (mainWindow) {
         if (mainWindow.isVisible() && !mainWindow.isMinimized()) {
           mainWindow.hide();
         } else {
-          if (mainWindow.isMinimized()) mainWindow.restore();
-          mainWindow.show();
-          mainWindow.focus();
-        }
-      }
-    });
-    
-    weeklyTray.on('click', () => {
-      if (mainWindow) {
-        if (mainWindow.isVisible() && !mainWindow.isMinimized()) {
-          mainWindow.hide();
-        } else {
-          if (mainWindow.isMinimized()) mainWindow.restore();
-          mainWindow.show();
-          mainWindow.focus();
+          showMainWindowClean();
         }
       }
     });
