@@ -246,8 +246,19 @@ If issues persist, open a [Support discussion](../../discussions/categories/supp
 - [x] Compact mode
 - [x] Usage history graph
 - [x] Currency support
-- [ ] Multiple account support
+- [x] Organization/Teams support
 - [ ] Keyboard shortcuts
+
+---
+
+## Contributors
+
+Special thanks to these contributors who have improved the widget:
+
+- [@cwil2072](https://github.com/cwil2072) - macOS minimize/restore fix, usage history graph
+- [@dion-jy](https://github.com/dion-jy) - Login flow architecture improvements
+- [@goooseman](https://github.com/goooseman) - Login window security improvements
+- [@sergkuzn](https://github.com/sergkuzn) - Linux desktop launcher & autostart documentation
 
 ---
 
