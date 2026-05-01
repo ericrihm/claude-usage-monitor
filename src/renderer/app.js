@@ -1201,10 +1201,10 @@ function showMainContent() {
     if (elements.compactCollapseBtn) {
         elements.compactCollapseBtn.style.display = isCompactMode ? 'none' : 'flex';
     }
-    // Restore header buttons after login
+    // Restore header buttons after login - but respect compact mode for graph button
     elements.settingsBtn.style.display = 'flex';
     elements.refreshBtn.style.display = 'flex';
-    elements.graphBtn.style.display = 'flex';
+    elements.graphBtn.style.display = isCompactMode ? 'none' : 'flex';
 }
 
 // Auto-update management
