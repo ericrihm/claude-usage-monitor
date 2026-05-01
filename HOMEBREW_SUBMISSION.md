@@ -11,27 +11,27 @@
 Download your latest macOS release DMG and run:
 
 ```bash
-shasum -a 256 Claude-Usage-Widget-1.7.1-macOS-arm64.dmg
+shasum -a 256 Codex-Usage-Widget-1.7.1-macOS-arm64.dmg
 ```
 
 This outputs something like:
 ```
-a1b2c3d4e5f6... Claude-Usage-Widget-1.7.1-macOS-arm64.dmg
+a1b2c3d4e5f6... Codex-Usage-Widget-1.7.1-macOS-arm64.dmg
 ```
 
-Copy that hash and update `claude-usage-widget.rb`, replacing `PLACEHOLDER_SHA256_ARM64` with the actual hash.
+Copy that hash and update `codex-usage-widget.rb`, replacing `PLACEHOLDER_SHA256_ARM64` with the actual hash.
 
 ## Step 2: Test the Cask Locally (Optional)
 
 ```bash
 # Install from local file
-brew install --cask ./claude-usage-widget.rb
+brew install --cask ./codex-usage-widget.rb
 
 # Test it works
-open "/Applications/Claude Usage Widget.app"
+open "/Applications/Codex Usage Widget.app"
 
 # Uninstall
-brew uninstall --cask claude-usage-widget
+brew uninstall --cask codex-usage-widget
 ```
 
 ## Step 3: Submit to Homebrew
@@ -50,26 +50,26 @@ git clone https://github.com/Hackpig1974/homebrew-cask.git
 cd homebrew-cask
 
 # Create a new branch
-git checkout -b claude-usage-widget
+git checkout -b codex-usage-widget
 
 # Copy your cask file to the correct location
-cp /path/to/claude-usage-widget.rb Casks/c/claude-usage-widget.rb
+cp /path/to/codex-usage-widget.rb Casks/c/codex-usage-widget.rb
 
 # Commit
-git add Casks/c/claude-usage-widget.rb
-git commit -m "Add claude-usage-widget 1.7.1"
+git add Casks/c/codex-usage-widget.rb
+git commit -m "Add codex-usage-widget 1.7.1"
 
 # Push to your fork
-git push origin claude-usage-widget
+git push origin codex-usage-widget
 ```
 
 ### Create Pull Request
 
 1. Go to https://github.com/Hackpig1974/homebrew-cask
-2. You'll see a banner: "claude-usage-widget had recent pushes"
+2. You'll see a banner: "codex-usage-widget had recent pushes"
 3. Click "Compare & pull request"
-4. Title: `claude-usage-widget 1.7.1 (new formula)`
-5. Description: Just a one-liner like "Desktop widget for monitoring Claude.ai usage statistics"
+4. Title: `codex-usage-widget 1.7.1 (new formula)`
+5. Description: Just a one-liner like "Desktop widget for monitoring AI assistant usage statistics"
 6. Click "Create pull request"
 
 ### Wait for Review
@@ -83,7 +83,7 @@ git push origin claude-usage-widget
 
 Users can install with:
 ```bash
-brew install --cask claude-usage-widget
+brew install --cask codex-usage-widget
 ```
 
 ## Updating Later (Future Releases)
@@ -91,10 +91,10 @@ brew install --cask claude-usage-widget
 When you release v1.8.0:
 
 1. Fork homebrew-cask again (or update your existing fork)
-2. Edit `Casks/c/claude-usage-widget.rb`:
+2. Edit `Casks/c/codex-usage-widget.rb`:
    - Update `version "1.8.0"`
    - Update sha256 with new DMG's hash
-3. Submit PR with title: `claude-usage-widget 1.8.0`
+3. Submit PR with title: `codex-usage-widget 1.8.0`
 
 ## Notes
 
@@ -107,7 +107,7 @@ When you release v1.8.0:
 
 **"Cask not found"**
 - Check file is in `Casks/c/` directory (alphabetical organization)
-- File must be named exactly `claude-usage-widget.rb`
+- File must be named exactly `codex-usage-widget.rb`
 
 **"SHA256 mismatch"**
 - Download the DMG again and recalculate the hash

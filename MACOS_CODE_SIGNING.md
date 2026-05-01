@@ -62,7 +62,7 @@ Your Apple Developer account email address.
 2. Sign in with your Apple ID
 3. Navigate to "Sign-In and Security" → "App-Specific Passwords"
 4. Click "Generate an app-specific password"
-5. Name it (e.g., "Claude Widget Notarization")
+5. Name it (e.g., "Codex Widget Notarization")
 6. Copy the generated password (format: `xxxx-xxxx-xxxx-xxxx`)
 
 **Important:** Save this password immediately — Apple only shows it once!
@@ -108,7 +108,7 @@ The build process will:
 4. Wait for Apple's approval (usually 3-25 minutes)
 5. Staple the notarization ticket to the DMG
 
-**Output:** `dist/Claude-Usage-Widget-{version}-macOS-{arch}.dmg`
+**Output:** `dist/Codex-Usage-Widget-{version}-macOS-{arch}.dmg`
 
 ## Troubleshooting
 

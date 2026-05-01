@@ -1,4 +1,4 @@
-# Contributing to Claude Usage Widget
+# Contributing to Codex Usage Widget
 
 Thank you for your interest in contributing! This guide will help you set up your development environment and understand the codebase.
 
@@ -13,8 +13,8 @@ Thank you for your interest in contributing! This guide will help you set up you
 
 1. **Fork and clone the repository**
    ```bash
-   git clone https://github.com/YOUR_USERNAME/claude-usage-widget.git
-   cd claude-usage-widget
+   git clone https://github.com/YOUR_USERNAME/codex-usage-widget.git
+   cd codex-usage-widget
    ```
 
 2. **Install dependencies**
@@ -34,7 +34,7 @@ Thank you for your interest in contributing! This guide will help you set up you
 ### First Run Testing
 
 1. Widget appears (frameless window)
-2. Click "Login to Claude"
+2. Click "Login to Codex"
 3. Browser window opens to claude.ai
 4. Login with your credentials
 5. Widget automatically captures session
@@ -54,7 +54,7 @@ Thank you for your interest in contributing! This guide will help you set up you
 ## Project Structure
 
 ```
-claude-usage-widget/
+codex-usage-widget/
 ├── main.js                      # Electron main process
 ├── preload.js                   # IPC bridge (secure context)
 ├── package.json                 # Dependencies & build config
@@ -86,9 +86,9 @@ npm run build        # All platforms (cross-compile where possible)
 ```
 
 **Output locations:**
-- Windows: `dist/Claude-Usage-Widget-{version}-win-Setup.exe` & `-portable.exe`
-- macOS: `dist/Claude-Usage-Widget-{version}-macOS-{arch}.dmg`
-- Linux: `dist/Claude-Usage-Widget-{version}-linux-{arch}.AppImage`
+- Windows: `dist/Codex-Usage-Widget-{version}-win-Setup.exe` & `-portable.exe`
+- macOS: `dist/Codex-Usage-Widget-{version}-macOS-{arch}.dmg`
+- Linux: `dist/Codex-Usage-Widget-{version}-linux-{arch}.AppImage`
 
 ## Development Tips
 
@@ -109,7 +109,7 @@ Check terminal console for:
 - Session key validation
 
 ### Test Organization Selector
-The org selector only appears if you have multiple Claude organizations (Personal + Teams). To test:
+The org selector only appears if you have multiple Codex organizations (Personal + Teams). To test:
 1. Log in with a Teams account that also has Personal access
 2. Open Settings (⚙️)
 3. Organization dropdown should appear
@@ -159,7 +159,7 @@ const UPDATE_INTERVAL = 1 * 60 * 1000; // 1 minute for testing
 ```javascript
 // In app.js, inside updateUI():
 if (weeklyUtilization >= 90 && !alertShown) {
-  new Notification('Claude Usage Alert', {
+  new Notification('Codex Usage Alert', {
     body: `You're at ${Math.round(weeklyUtilization)}% of weekly limit!`
   });
   alertShown = true;
@@ -207,7 +207,7 @@ app.whenReady().then(() => {
 - **Renderer process:** DevTools console (automatically opens in dev mode)
 
 ### Network Requests
-DevTools → Network tab shows all API calls to Claude.ai
+DevTools → Network tab shows all API calls to the AI assistant
 
 ### Electron Storage
 Check stored data:
@@ -291,8 +291,8 @@ For maintainers only. See `RELEASE_PROCESS.md` for details.
 
 ## Questions?
 
-- Open a [Discussion](https://github.com/SlavomirDurej/claude-usage-widget/discussions)
-- Check existing [Issues](https://github.com/SlavomirDurej/claude-usage-widget/issues)
+- Open a [Discussion](https://github.com/SlavomirDurej/codex-usage-widget/discussions)
+- Check existing [Issues](https://github.com/SlavomirDurej/codex-usage-widget/issues)
 - Review [Changelog](CHANGELOG.md) for recent changes
 
 ---

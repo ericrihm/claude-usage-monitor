@@ -487,7 +487,7 @@ async function handleAutoDetect() {
     }
 }
 
-// Fetch usage data from Claude API
+// Fetch usage data from AI assistant API
 async function fetchUsageData(options = {}) {
     debugLog('fetchUsageData called');
 
@@ -794,14 +794,14 @@ function checkUsageAlerts(data) {
         alertFired.session_danger = true;
         alertFired.session_warn = true; // suppress warn if we jumped straight to danger
         window.electronAPI.showNotification(
-            'Claude Usage Widget',
+            'Codex Usage Widget',
             `Current Session usage is at ${Math.round(sessionPct)}% — running low`
         );
     // Current Session — warn threshold
     } else if (sessionPct >= warnThreshold && !alertFired.session_warn) {
         alertFired.session_warn = true;
         window.electronAPI.showNotification(
-            'Claude Usage Widget',
+            'Codex Usage Widget',
             `Current Session usage has reached ${Math.round(sessionPct)}%`
         );
     }
@@ -811,14 +811,14 @@ function checkUsageAlerts(data) {
         alertFired.weekly_danger = true;
         alertFired.weekly_warn = true;
         window.electronAPI.showNotification(
-            'Claude Usage Widget',
+            'Codex Usage Widget',
             `Weekly Limit usage is at ${Math.round(weeklyPct)}% — running low`
         );
     // Weekly Limit — warn threshold
     } else if (weeklyPct >= warnThreshold && !alertFired.weekly_warn) {
         alertFired.weekly_warn = true;
         window.electronAPI.showNotification(
-            'Claude Usage Widget',
+            'Codex Usage Widget',
             `Weekly Limit usage has reached ${Math.round(weeklyPct)}%`
         );
     }

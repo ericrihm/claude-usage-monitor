@@ -5,7 +5,7 @@ const Store = require('electron-store');
 const { fetchViaWindow, fetchMultipleViaWindow } = require('./src/fetch-via-window');
 
 const GITHUB_OWNER = 'SlavomirDurej';
-const GITHUB_REPO = 'claude-usage-widget';
+const GITHUB_REPO = 'codex-usage-widget';
 
 // Migration: Handle old encrypted config files from v1.7.0 and earlier
 // Must happen BEFORE creating Store instance to prevent parse errors
@@ -15,12 +15,12 @@ const os = require('os');
 // electron-store uses different paths per platform
 let configPath;
 if (process.platform === 'darwin') {
-  configPath = path.join(os.homedir(), 'Library', 'Application Support', 'claude-usage-widget', 'config.json');
+  configPath = path.join(os.homedir(), 'Library', 'Application Support', 'codex-usage-widget', 'config.json');
 } else if (process.platform === 'win32') {
-  configPath = path.join(process.env.APPDATA || path.join(os.homedir(), 'AppData', 'Roaming'), 'claude-usage-widget', 'config.json');
+  configPath = path.join(process.env.APPDATA || path.join(os.homedir(), 'AppData', 'Roaming'), 'codex-usage-widget', 'config.json');
 } else {
   // Linux
-  configPath = path.join(os.homedir(), '.config', 'claude-usage-widget', 'config.json');
+  configPath = path.join(os.homedir(), '.config', 'codex-usage-widget', 'config.json');
 }
 
 try {
@@ -544,7 +544,7 @@ function createTray() {
         click: async () => {
           store.delete('sessionKey');
           store.delete('organizationId');
-          // Clear all Claude.ai cookies and session storage
+          // Clear all session cookies and session storage
           const cookies = await session.defaultSession.cookies.get({ url: 'https://claude.ai' });
           for (const cookie of cookies) {
             await session.defaultSession.cookies.remove('https://claude.ai', cookie.name);
@@ -707,7 +707,7 @@ ipcMain.handle('delete-credentials', async () => {
   store.delete('sessionKey');
   store.delete('sessionKey_encrypted');
   store.delete('organizationId');
-  // Remove all Claude.ai cookies
+  // Remove all session cookies
   const cookies = await session.defaultSession.cookies.get({ url: 'https://claude.ai' });
   for (const cookie of cookies) {
     await session.defaultSession.cookies.remove('https://claude.ai', cookie.name);
@@ -921,16 +921,16 @@ ipcMain.handle('save-settings', (event, settings) => {
   return true;
 });
 
-// Open a visible BrowserWindow for the user to log in to Claude.ai.
+// Open a visible BrowserWindow for the user to log in to the AI assistant.
 //
 // Why we don't embed login directly in the app:
-// Claude.ai (via Cloudflare) detects and blocks Electron-embedded logins.
+// The service (via Cloudflare) detects and blocks Electron-embedded logins.
 // Instead, we open a standalone browser window, let the user authenticate
 // normally, then capture the sessionKey cookie once login completes.
 // Do NOT attempt to "fix" this back to an embedded login without verifying
-// that Claude.ai/Cloudflare no longer blocks it.
+// that the service/Cloudflare no longer blocks it.
 //
-// SECURITY: Navigation is restricted to trusted domains (claude.ai and OAuth
+// SECURITY: Navigation is restricted to trusted domains (claude.ai and other OAuth
 // providers) to prevent phishing attacks. Popup windows are blocked. Current
 // URL is displayed in the window title bar for transparency.
 ipcMain.handle('detect-session-key', async () => {
@@ -943,7 +943,7 @@ ipcMain.handle('detect-session-key', async () => {
     const loginWin = new BrowserWindow({
       width: 1000,
       height: 700,
-      title: 'Claude Login - https://claude.ai/login',
+      title: 'Codex Login - https://claude.ai/login',
       webPreferences: {
         nodeIntegration: false,
         contextIsolation: true
@@ -971,7 +971,7 @@ ipcMain.handle('detect-session-key', async () => {
           console.warn('[Security] Blocked login navigation to untrusted domain:', url);
         } else {
           // Update title bar to show current URL (read-only)
-          loginWin.setTitle(`Claude Login - ${url}`);
+          loginWin.setTitle(`Codex Login - ${url}`);
         }
       } catch (err) {
         event.preventDefault();
@@ -981,11 +981,11 @@ ipcMain.handle('detect-session-key', async () => {
 
     // Update title on OAuth redirects and in-page navigation
     loginWin.webContents.on('did-navigate', (event, url) => {
-      loginWin.setTitle(`Claude Login - ${url}`);
+      loginWin.setTitle(`Codex Login - ${url}`);
     });
 
     loginWin.webContents.on('did-navigate-in-page', (event, url) => {
-      loginWin.setTitle(`Claude Login - ${url}`);
+      loginWin.setTitle(`Codex Login - ${url}`);
     });
 
     // Security: block popup windows from login page
@@ -1030,7 +1030,7 @@ ipcMain.handle('check-for-update', () => {
       path: `/repos/${GITHUB_OWNER}/${GITHUB_REPO}/releases/latest`,
       method: 'GET',
       headers: {
-        'User-Agent': 'claude-usage-widget',
+        'User-Agent': 'codex-usage-widget',
         'Accept': 'application/vnd.github+json'
       },
       timeout: 5000

@@ -1,7 +1,7 @@
 {
-  "name": "claude-usage-widget",
+  "name": "codex-usage-widget",
   "version": "1.7.3",
-  "description": "Desktop widget for Claude.ai usage monitoring",
+  "description": "Desktop widget for AI assistant usage monitoring",
   "main": "main.js",
   "scripts": {
     "start": "electron .",
@@ -12,7 +12,7 @@
     "build:linux": "electron-builder --linux"
   },
   "keywords": [
-    "claude",
+    "codex",
     "usage",
     "widget",
     "electron"
@@ -35,8 +35,8 @@
     "electron-store": "^8.1.0"
   },
   "build": {
-    "appId": "com.claudeusage.widget",
-    "productName": "Claude-Usage-Widget",
+    "appId": "com.codexusage.widget",
+    "productName": "Codex-Usage-Widget",
     "copyright": "Copyright © 2025 Slavomir Durej",
     "publish": null,
     "win": {
@@ -48,7 +48,7 @@
     },
     "portable": {
       "artifactName": "${productName}-${version}-win-portable.${ext}",
-      "unpackDirName": "claude-usage-widget"
+      "unpackDirName": "codex-usage-widget"
     },
     "nsis": {
       "oneClick": false,

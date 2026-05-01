@@ -12,7 +12,7 @@
         img-src 'self' data:;
         connect-src 'none';
     ">
-    <title>Claude Usage Widget</title>
+    <title>Codex Usage Widget</title>
     <link rel="stylesheet" href="styles.css">
     <script src="../../node_modules/chart.js/dist/chart.umd.js"></script>
 </head>
@@ -24,7 +24,7 @@
             <div class="title-bar" id="titleBar">
                 <div class="title">
                     <img src="../../assets/logo.png" alt="Logo" class="app-logo">
-                    <span>Claude Usage</span>
+                    <span>Codex Usage</span>
                 </div>
                 <div class="controls">
                     <button class="control-btn settings-btn" id="settingsBtn" title="Settings">⚙️</button>
@@ -69,9 +69,9 @@
                             </svg>
                         </div>
                         <div class="step-text">
-                            <h3>Connect to Claude.ai</h3>
-                            <p>Log in to your Claude account</p>
-                            <p class="step-hint">If auto-login doesn't work, use Manual to paste your session key — Claude.ai may block embedded browsers.</p>
+                            <h3>Connect to AI Assistant</h3>
+                            <p>Log in to your Codex account</p>
+                            <p class="step-hint">If auto-login doesn't work, use Manual to paste your session key — the service may block embedded browsers.</p>
                             <p class="step-error" id="autoDetectError"></p>
                         </div>
                         <button class="auto-detect-btn" id="autoDetectBtn">Log in</button>
@@ -108,7 +108,7 @@
                     </svg>
                     <div class="no-usage-text-group">
                         <h3>No Usage Yet</h3>
-                        <p>Start chatting with Claude to see your usage stats</p>
+                        <p>Start chatting with Codex to see your usage stats</p>
                     </div>
                 </div>
             </div>

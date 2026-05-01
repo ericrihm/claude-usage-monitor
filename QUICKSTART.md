@@ -1,14 +1,14 @@
 # Quick Start Guide
 
-Get up and running with Claude Usage Widget in under 2 minutes.
+Get up and running with Codex Usage Widget in under 2 minutes.
 
 ## Step 1: Download
 
-Go to [Releases](https://github.com/SlavomirDurej/claude-usage-widget/releases) and download the latest version for your platform:
+Go to [Releases](https://github.com/SlavomirDurej/codex-usage-widget/releases) and download the latest version for your platform:
 
-- **Windows:** `Claude-Usage-Widget-{version}-win-Setup.exe`
-- **macOS:** `Claude-Usage-Widget-{version}-macOS-arm64.dmg` (Apple Silicon) or `-x64.dmg` (Intel)
-- **Linux:** `Claude-Usage-Widget-{version}-linux-x86_64.AppImage`
+- **Windows:** `Codex-Usage-Widget-{version}-win-Setup.exe`
+- **macOS:** `Codex-Usage-Widget-{version}-macOS-arm64.dmg` (Apple Silicon) or `-x64.dmg` (Intel)
+- **Linux:** `Codex-Usage-Widget-{version}-linux-x86_64.AppImage`
 
 ## Step 2: Install
 
@@ -18,7 +18,7 @@ Go to [Releases](https://github.com/SlavomirDurej/claude-usage-widget/releases) 
 3. Launch from Start Menu
 
 **Or use the portable version** (no installation):
-Download `Claude-Usage-Widget-{version}-win-portable.exe` and run it directly.
+Download `Codex-Usage-Widget-{version}-win-portable.exe` and run it directly.
 
 ### macOS
 1. Open the `.dmg` file
@@ -27,17 +27,17 @@ Download `Claude-Usage-Widget-{version}-win-portable.exe` and run it directly.
 
 **Note:** The app is signed and notarized. If you see a warning, run:
 ```bash
-xattr -cr /Applications/Claude\ Usage\ Widget.app
+xattr -cr /Applications/Codex\ Usage\ Widget.app
 ```
 
 ### Linux
 1. Make the AppImage executable:
    ```bash
-   chmod +x Claude-Usage-Widget-*.AppImage
+   chmod +x Codex-Usage-Widget-*.AppImage
    ```
 2. Run it:
    ```bash
-   ./Claude-Usage-Widget-*.AppImage
+   ./Codex-Usage-Widget-*.AppImage
    ```
 
 **Ubuntu 22.04+:** If it doesn't run, install libfuse2 first:
@@ -48,8 +48,8 @@ sudo apt install libfuse2
 ## Step 3: Login
 
 1. **Launch the widget** - A small window appears
-2. **Click "Login to Claude"** - Your browser opens
-3. **Sign in** - Use your normal Claude.ai credentials
+2. **Click "Login to Codex"** - Your browser opens
+3. **Sign in** - Use your normal Codex credentials
 4. **Done!** - The widget automatically captures your session and displays usage
 
 ## What You'll See
@@ -101,8 +101,8 @@ Right-click the tray icon → "Log Out" to clear your session.
 
 - **Installation issues:** See [INSTALL.md](INSTALL.md) for detailed platform-specific guides
 - **Feature questions:** Check the [README](README.md)
-- **Problems:** Open a [Support Discussion](https://github.com/SlavomirDurej/claude-usage-widget/discussions/categories/support)
+- **Problems:** Open a [Support Discussion](https://github.com/SlavomirDurej/codex-usage-widget/discussions/categories/support)
 
 ---
 
-**That's it!** You're now tracking your Claude usage. 🎉
+**That's it!** You're now tracking your Codex usage. 🎉

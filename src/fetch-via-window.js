@@ -4,7 +4,7 @@
  * Fetches JSON from a URL using a hidden BrowserWindow.
  *
  * Why this exists:
- * Claude.ai uses Cloudflare protection and detects Electron's default
+ * The AI assistant service uses Cloudflare protection and detects Electron's default
  * request headers, blocking standard Node.js fetch/http requests.
  * By loading the URL in a hidden BrowserWindow with a spoofed Chrome
  * User-Agent, we ride on the browser session cookies and bypass
@@ -15,7 +15,7 @@
 const { BrowserWindow } = require('electron');
 
 /**
- * Known error signatures returned when Claude.ai blocks or changes behaviour.
+ * Known error signatures returned when the service blocks or changes behaviour.
  * If the extracted body matches one of these patterns we throw a specific error
  * so callers can react (e.g. prompt re-login).
  */
@@ -32,7 +32,7 @@ const BLOCKED_SIGNATURES = [
  */
 function parseResponseBody(bodyText) {
   // Detect known block/failure signatures before attempting JSON parse.
-  // This provides explicit errors when Claude.ai modifies their API or CSP.
+  // This provides explicit errors when the service modifies their API or CSP.
   for (const sig of BLOCKED_SIGNATURES) {
     if (bodyText.includes(sig.pattern)) {
       throw new Error(`${sig.error}: ${bodyText.substring(0, 200)}`);

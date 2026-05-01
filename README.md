@@ -1,8 +1,8 @@
-# Claude Usage Widget
+# Codex Usage Widget
 
-A beautiful, standalone desktop widget for **Windows, macOS, and Linux** that displays your Claude.ai usage statistics in real-time.
+A beautiful, standalone desktop widget for **Windows, macOS, and Linux** that displays your AI assistant usage statistics in real-time.
 
-![Claude Usage Widget - Main](assets/screenshot-main.png)
+![Codex Usage Widget - Main](assets/screenshot-main.png)
 
 ---
 
@@ -41,7 +41,7 @@ Changes apply immediately when thresholds are adjusted in Settings.
 
 A toggleable usage history graph now sits below the main widget. Click the graph button in the toolbar to show or hide it.
 
-![Claude Usage Widget - Graph](assets/screenshot-graph.png)
+![Codex Usage Widget - Graph](assets/screenshot-graph.png)
 
 - Displays up to **7 days** of session and weekly usage history
 - History **persists across restarts** — no need to keep the app running continuously
@@ -61,7 +61,7 @@ The Extra Usage row now displays the correct currency symbol based on your accou
 
 ### Settings Panel
 
-![Claude Usage Widget - Settings](assets/screenshot-settings.png)
+![Codex Usage Widget - Settings](assets/screenshot-settings.png)
 
 
 ### Settings Options
@@ -82,25 +82,25 @@ The Extra Usage row now displays the correct currency symbol based on your accou
 ### Download Pre-built Release
 
 **Windows:**
-1. Download the latest `Claude-Usage-Widget-{version}-win-Setup.exe` (installer) or `Claude-Usage-Widget-{version}-win-portable.exe` (no install needed) from [Releases](../../releases)
+1. Download the latest `Codex-Usage-Widget-{version}-win-Setup.exe` (installer) or `Codex-Usage-Widget-{version}-win-portable.exe` (no install needed) from [Releases](../../releases)
 2. Run the installer or portable exe
-3. Launch "Claude Usage Widget" from the Start Menu (installer) or directly (portable)
+3. Launch "Codex Usage Widget" from the Start Menu (installer) or directly (portable)
 
 **macOS:**
-1. Download the latest `Claude-Usage-Widget-{version}-macOS-arm64.dmg` (Apple Silicon) or `Claude-Usage-Widget-{version}-macOS-x64.dmg` (Intel) from [Releases](../../releases)
+1. Download the latest `Codex-Usage-Widget-{version}-macOS-arm64.dmg` (Apple Silicon) or `Codex-Usage-Widget-{version}-macOS-x64.dmg` (Intel) from [Releases](../../releases)
 2. Open the DMG and drag the app to your Applications folder
-3. Launch "Claude Usage Widget" from Applications
+3. Launch "Codex Usage Widget" from Applications
 
 > **⚠️ macOS Security Notice:** Because this app is not yet notarized with Apple, macOS Gatekeeper may show a "damaged or can't be opened" warning. To fix this, run the following command in Terminal after installing:
 > ```
-> xattr -cr /Applications/Claude\ Usage\ Widget.app
+> xattr -cr /Applications/Codex\ Usage\ Widget.app
 > ```
 > Then try launching the app again.
 
 **Linux:**
-1. Download the latest `Claude-Usage-Widget-{version}-linux-x86_64.AppImage` (Intel/AMD) or `Claude-Usage-Widget-{version}-linux-arm64.AppImage` (ARM) from [Releases](../../releases)
-2. Make it executable: `chmod +x Claude-Usage-Widget-*.AppImage`
-3. Run it: `./Claude-Usage-Widget-*.AppImage`
+1. Download the latest `Codex-Usage-Widget-{version}-linux-x86_64.AppImage` (Intel/AMD) or `Codex-Usage-Widget-{version}-linux-arm64.AppImage` (ARM) from [Releases](../../releases)
+2. Make it executable: `chmod +x Codex-Usage-Widget-*.AppImage`
+3. Run it: `./Codex-Usage-Widget-*.AppImage`
 
 > **Note:** AppImage runs without installation on most Linux distributions. On Ubuntu 22.04+, you may need to install a dependency first:
 > ```bash
@@ -114,18 +114,18 @@ By default the AppImage runs from wherever you put it. To get a clickable icon i
 **1. Place the AppImage somewhere permanent:**
 ```bash
 mkdir -p ~/.local/bin
-mv Claude-Usage-Widget-*.AppImage ~/.local/bin/claude-usage-widget.AppImage
-chmod +x ~/.local/bin/claude-usage-widget.AppImage
+mv Codex-Usage-Widget-*.AppImage ~/.local/bin/codex-usage-widget.AppImage
+chmod +x ~/.local/bin/codex-usage-widget.AppImage
 ```
 
 **2. Create a desktop entry:**
 ```bash
-cat > ~/.local/share/applications/claude-usage-widget.desktop << EOF
+cat > ~/.local/share/applications/codex-usage-widget.desktop << EOF
 [Desktop Entry]
-Name=Claude Usage Widget
-Comment=Monitor Claude.ai usage
-Exec=$HOME/.local/bin/claude-usage-widget.AppImage --no-sandbox
-Icon=$HOME/.local/bin/claude-usage-widget.AppImage
+Name=Codex Usage Widget
+Comment=Monitor AI assistant usage
+Exec=$HOME/.local/bin/codex-usage-widget.AppImage --no-sandbox
+Icon=$HOME/.local/bin/codex-usage-widget.AppImage
 Terminal=false
 Type=Application
 Categories=Utility;
@@ -145,7 +145,7 @@ The widget should now appear in your application launcher. Test it by launching 
 **4. Autostart at login (optional):**
 ```bash
 mkdir -p ~/.config/autostart
-cp ~/.local/share/applications/claude-usage-widget.desktop ~/.config/autostart/
+cp ~/.local/share/applications/codex-usage-widget.desktop ~/.config/autostart/
 ```
 
 ---
@@ -157,8 +157,8 @@ cp ~/.local/share/applications/claude-usage-widget.desktop ~/.config/autostart/
 - npm (comes with Node.js)
 
 ```bash
-git clone https://github.com/SlavomirDurej/claude-usage-widget.git
-cd claude-usage-widget
+git clone https://github.com/SlavomirDurej/codex-usage-widget.git
+cd codex-usage-widget
 npm install
 npm start
 ```
@@ -171,8 +171,8 @@ npm start
 ### First Launch
 
 1. Launch the widget
-2. Click "Login to Claude" when prompted
-3. A browser window will open — log in to your Claude.ai account
+2. Click "Login to Codex" when prompted
+3. A browser window will open — log in to your AI assistant account
 4. The widget will automatically capture your session
 5. Usage data will start displaying immediately
 
@@ -212,14 +212,14 @@ Right-click the tray icon for: Show/Hide, Refresh, Re-login, Settings, Exit.
 
 - Credentials stored **locally only** using encrypted storage
 - No data sent to any third-party servers
-- Only communicates with the official Claude.ai API
+- Only communicates with the official Codex API
 - Logout clears all session data, cookies, and Electron session storage
 
 ---
 
 ## Troubleshooting
 
-**"Login Required" keeps appearing** — Session may have expired. Click "Login to Claude" to re-authenticate.
+**"Login Required" keeps appearing** — Session may have expired. Click "Login to Codex" to re-authenticate.
 
 **Widget not updating** — Check internet connection, click refresh manually, or try re-logging in from the tray menu.
 

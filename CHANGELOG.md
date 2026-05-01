@@ -1,6 +1,6 @@
 # Changelog
 
-All notable changes to Claude Usage Widget are documented here.
+All notable changes to Codex Usage Widget are documented here.
 Newest releases at the top. Format inspired by [Keep a Changelog](https://keepachangelog.com).
 
 ---
@@ -12,7 +12,7 @@ Newest releases at the top. Format inspired by [Keep a Changelog](https://keepac
 ## [1.7.2] — 2026-04-16
 
 ### New Features
-- Teams organization support — users with multiple Claude organizations can select which to track in Settings
+- Teams organization support — users with multiple Codex organizations can select which to track in Settings
 - System tray usage indicators — dual tray icons display real-time usage percentages (Weekly left/blue, Session right/purple), with bold 8×11 bitmap font for crisp readability, Red X icon at 99-100% usage (Windows-first, macOS/Linux planned)
 
 ### Security
@@ -209,7 +209,7 @@ Beta build for testing. Not intended for general use.
 - Fresh-user state shows "Not started" instead of ambiguous dashes
 
 ### Notes
-- macOS users: if Gatekeeper shows "app is damaged", run `xattr -cr /Applications/Claude\ Usage\ Widget.app`
+- macOS users: if Gatekeeper shows "app is damaged", run `xattr -cr /Applications/Codex\ Usage\ Widget.app`
   This is a Gatekeeper issue, not file corruption. Notarization is on the roadmap.
 
 ---
@@ -248,6 +248,6 @@ Initial release.
 - Auto-refresh every 5 minutes, auto-refresh when limits reset
 - Always-on-top floating widget, minimize to system tray
 - Draggable window positioning
-- Clean dark theme, secure login via Claude.ai
+- Clean dark theme, secure login via the service
 - Settings panel with logout option and manual refresh button
 - Windows 10+ support

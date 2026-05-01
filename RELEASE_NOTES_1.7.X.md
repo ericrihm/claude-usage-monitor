@@ -1,4 +1,4 @@
-# Claude Usage Widget v1.7.X Release History
+# Codex Usage Widget v1.7.X Release History
 
 This document consolidates all release notes for the 1.7.x release series.
 
@@ -42,9 +42,9 @@ This release brings multi-organization support, real-time system tray indicators
 
 ### What's New
 
-**Multi-Organization Support**: Users with both Personal and Teams Claude accounts can now select which organization to monitor directly from Settings. The organization selector appears automatically when multiple chat-enabled organizations are detected, defaulting to Teams when available. Switching organizations triggers an immediate refresh of usage data.
+**Multi-Organization Support**: Users with both Personal and Teams Codex accounts can now select which organization to monitor directly from Settings. The organization selector appears automatically when multiple chat-enabled organizations are detected, defaulting to Teams when available. Switching organizations triggers an immediate refresh of usage data.
 
-**System Tray Usage Indicators**: Two compact tray icons provide at-a-glance monitoring of your Claude usage without opening the widget. The left icon (blue) displays Weekly usage; the right icon (purple) shows Session usage. Each icon renders percentage values using a crisp 8×11 bitmap font optimized for legibility at system tray scale. When usage reaches 99-100%—the realistic threshold where Claude API requests begin to fail—icons automatically switch to a red X indicator. Currently available on Windows; macOS and Linux support is planned for a future release.
+**System Tray Usage Indicators**: Two compact tray icons provide at-a-glance monitoring of your Codex usage without opening the widget. The left icon (blue) displays Weekly usage; the right icon (purple) shows Session usage. Each icon renders percentage values using a crisp 8×11 bitmap font optimized for legibility at system tray scale. When usage reaches 99-100%—the realistic threshold where Codex API requests begin to fail—icons automatically switch to a red X indicator. Currently available on Windows; macOS and Linux support is planned for a future release.
 
 **Enhanced Login Security**: Login flow now enforces strict navigation controls, restricting the login window to trusted authentication domains only (claude.ai, Google, Apple, Microsoft OAuth providers). Popup windows are blocked, and the current URL is displayed in the window title bar for full transparency. These measures prevent phishing attacks and login flow hijacking attempts.
 
@@ -80,7 +80,7 @@ Security and stability improvements.
 
 **Refresh Icon Animation**: The refresh button now spins during both manual and automatic background refreshes, giving a clear visual indication the app is updating.
 
-**Always Show Widget When Logged In**: The widget now always displays session and weekly rows after login, showing 0% and "Not started" when no active session exists — consistent with Claude's own usage UI.
+**Always Show Widget When Logged In**: The widget now always displays session and weekly rows after login, showing 0% and "Not started" when no active session exists — consistent with Codex's own usage UI.
 
 **macOS Window Width**: Increased widget width from 530px to 560px to prevent the "Resets At" date/time column from clipping on macOS due to higher-DPI font rendering.
 
@@ -94,4 +94,4 @@ Security and stability improvements.
 
 ---
 
-**For older releases (v1.6.x and earlier), see:** https://github.com/SlavomirDurej/claude-usage-widget/releases
+**For older releases (v1.6.x and earlier), see:** https://github.com/SlavomirDurej/codex-usage-widget/releases
